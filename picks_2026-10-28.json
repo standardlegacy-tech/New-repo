@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-28",
+  "saved_at": "2026-10-28T06:24:07.402284+03:00",
+  "picks": [],
+  "no_pick_matches": [
+    {
+      "match": "AC Milan vs Bologna",
+      "reason": "Incomplete verified model inputs and no timestamped fresh full-market odds; no model run."
+    },
+    {
+      "match": "Parma vs Udinese",
+      "reason": "Incomplete verified model inputs and no timestamped fresh full-market odds; no model run."
+    },
+    {
+      "match": "Venezia vs Inter",
+      "reason": "Incomplete verified model inputs and no timestamped fresh full-market odds; no model run."
+    },
+    {
+      "match": "Genoa vs Juventus",
+      "reason": "Incomplete verified model inputs and no timestamped fresh full-market odds; no model run."
+    },
+    {
+      "match": "Monza vs Napoli",
+      "reason": "Incomplete verified model inputs and no timestamped fresh full-market odds; no model run."
+    }
+  ]
+}
