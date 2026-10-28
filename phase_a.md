@@ -44,6 +44,14 @@ If more than MAX_MATCHES_DEEP_ANALYSIS, deep-analyze the matches with the best d
 - Fixture not verified, or major contradictory news.
 - Competition where you cannot find reliable stats.
 
+### A1.2b DO NOT STOP EARLY
+Finding fixtures is only the start. For EVERY non-excluded match you must attempt A1.3, A1.4 and A1.5 completely. Do not end the run after the schedule.
+- If a source is blocked or empty, try at least 2 other named sources before writing "no data".
+- If you still fail, report exactly what failed: match, field, sources tried, error or reason.
+- Matches with complete inputs get a model run even if the result is "No pick". Show the model.py output for them.
+- Only matches with missing inputs after those attempts are marked "not modeled: <specific reason>".
+- Also state, per league in LEAGUES, either its fixtures or "no fixtures found today" with the source checked.
+
 ### A1.3 Data per remaining match (with sources)
 - Last 10 matches for each team, all venues (opponent, venue, score). Use goals for/against per game (`gf_pg`, `ga_pg`) and `n`. If xG is available from a named source, use xG per game instead and label it XG.
 - League season averages for home goals per game and away goals per game (`league_avg_home_goals`, `league_avg_away_goals`) from a named source.
@@ -54,7 +62,8 @@ If more than MAX_MATCHES_DEEP_ANALYSIS, deep-analyze the matches with the best d
 Flag stale or contradictory data. Do not smooth over conflicts.
 
 ### A1.4 Odds
-For each match get 1X2, over/under 2.5, BTTS from at least 2 sources if possible. Record bookmaker and retrieval time. Any odds older than 2 hours are STALE and excluded from picks.
+For each match get 1X2, over/under 2.5, BTTS from at least 2 sources if possible. Record bookmaker and retrieval time. Freshness is measured from YOUR retrieval time, not from the site's publication time. Record "retrieved HH:MM; site update time: shown/unknown".
+Odds retrieved less than 2 hours ago are usable. If the site shows no update time, label them AGE-UNVERIFIED: they may be used for the model benchmark and for PROVISIONAL picks in A1, but a pick becomes FINAL only after the A2 recheck, with odds retrieved within 2 hours of kickoff. Odds retrieved more than 2 hours ago are STALE and excluded.
 You probably cannot read 1xbet. Use what you can access as an estimate. Every pick must carry MIN ACCEPTABLE ODDS (from model.py `min_odds_fair`, rounded up). If 1xbet's price is lower than that, the pick is invalid; I check that myself.
 
 ### A1.5 Run the model
@@ -81,7 +90,7 @@ If any input is missing, write "no data" and do not run that market.
 ### A1.6 Pick selection
 For each match choose AT MOST ONE market, or "No pick". A pick is allowed only if ALL are true:
 1. model.py shows `passes: true` for that outcome.
-2. Odds are fresh (under 2 hours) and from a named source.
+2. Odds are retrieved under 2 hours ago from a named source. Age-unverified odds make the pick PROVISIONAL until the A2 recheck.
 3. No unresolved OFFICIAL or TRUSTED news that the model cannot see (key injury, rotation, suspension). If one exists and is unconfirmed, drop the pick.
 4. You can state, in one line, which concrete information the market may be missing, or the pick is based on the model/market blend alone. If the model differs from the market by more than 10 points, trust the market.
 5. Settlement basis is stated (see below).
@@ -108,7 +117,7 @@ Create `acca.json` (list of legs with `match`, `market`, `p`, `odds`) and run `p
 3. Coupon options.
 4. Match cards (max 5 lines each): key facts, key risks, data gaps, news tier.
 5. Excluded matches with the reason.
-6. Self-check checklist (see below).
+6. Step 0 report (tools and test results) and the full 10-item self-check checklist with pass/fail for each item (see below). Do not summarize it.
 7. Short Arabic summary (max 5 lines).
 
 ### A1.10 Save before kickoff
@@ -150,7 +159,7 @@ Save to `picks_YYYY-MM-DD.json` and commit it BEFORE the first kickoff. Tell me 
 2. Every FACT has a source and retrieval time.
 3. Every pick has settlement basis, min odds, lineup status, and the "VERIFY at 1xbet" line.
 4. No two accumulator legs are from the same match.
-5. Odds older than 2 hours are marked STALE and excluded from picks.
+5. Odds older than 2 hours (by my retrieval time) are marked STALE and excluded; age-unverified odds are labeled and picks using them are PROVISIONAL.
 6. Fixtures verified against 2 sources (teams, date, kickoff).
 7. Each reason cites data, not narrative ("they want it more", "must win").
 8. No pick rests on a RUMOR or a single unverified source.
